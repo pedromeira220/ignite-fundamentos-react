@@ -1,4 +1,4 @@
-import { Button } from '../../components/Button'
+import { DeleteButton } from '../../components/DeleteButton'
 import { Header } from '../../components/Header'
 
 export function Home() {
@@ -6,7 +6,7 @@ export function Home() {
     <div>
       <Header />
       <div className="w-full">
-        <Button text="Criar" />
+        <DeleteButton />
       </div>
     </div>
   )
