@@ -19,6 +19,9 @@ module.exports = {
         },
         danger: '#E25858',
       },
+      fontFamily: {
+        inter: ['Inter', 'sans-serif'],
+      },
     },
   },
   plugins: [],
