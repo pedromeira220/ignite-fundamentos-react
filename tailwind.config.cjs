@@ -13,6 +13,9 @@ module.exports = {
         600: '#1A1A1A',
         700: '#0D0D0D',
       },
+      blue: '#4EA8DE',
+      'blue-dark': '#1E6F9F',
+      white: '#ffffff',
     },
     gray: {
       100: '#F2F2F2',
@@ -27,8 +30,6 @@ module.exports = {
       color: {
         purple: '#8284FA',
         'purple-dark': '#5E60CE',
-        blue: '#4EA8DE',
-        'blue-dark': '#1E6F9F',
 
         danger: '#E25858',
       },
