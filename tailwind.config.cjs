@@ -4,6 +4,7 @@ module.exports = {
   content: ['./src/**/*.tsx'],
   theme: {
     colors: {
+      transparent: 'transparent',
       gray: {
         100: '#F2F2F2',
         200: '#D9D9D9',
