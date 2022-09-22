@@ -1,9 +1,44 @@
+import { ClipboardText } from 'phosphor-react'
+import { useState } from 'react'
 import { Button } from '../../components/Button'
 import { Header } from '../../components/Header'
 import { Input } from '../../components/Input'
 import { Task } from '../../components/Task'
 
+interface ITask {
+  content: string
+  isChecked: boolean
+  id: string
+}
+
 export function Home() {
+  const [taskList, setTaskList] = useState<ITask[]>([])
+
+  const [newTaskText, setNewTaskText] = useState('')
+
+  function handleNewTaskInputChange(
+    event: React.ChangeEvent<HTMLInputElement>
+  ) {
+    setNewTaskText(event.target.value)
+  }
+
+  function handleNewTaskButtonCreate() {
+    if (newTaskText.length == 0) {
+      alert('Você não pode criar uma task sem nenhum texto')
+      return
+    }
+
+    const newTask: ITask = {
+      content: newTaskText,
+      id: '1',
+      isChecked: false,
+    }
+
+    const newTaskList: ITask[] = [newTask, ...taskList]
+
+    setTaskList(newTaskList)
+  }
+
   return (
     <div className="h-full flex flex-col items-center justify-center">
       <Header />
@@ -11,8 +46,18 @@ export function Home() {
       <section className="w-full h-full max-w-3xl">
         <div className="w-full px-4 -mt-8 ">
           <div className="w-full flex items-center justify-between gap-2">
-            <Input placeholder="Adicione uma nova tarefa" />
-            <Button text="Criar" />
+            <Input
+              placeholder="Adicione uma nova tarefa"
+              onChange={event => {
+                handleNewTaskInputChange(event)
+              }}
+            />
+            <Button
+              text="Criar"
+              onClick={() => {
+                handleNewTaskButtonCreate()
+              }}
+            />
           </div>
         </div>
         <header className="w-full">
@@ -35,12 +80,31 @@ export function Home() {
         </header>
 
         <main className="w-full rounded-2 overflow-hidden flex-1 border-t-2 border-gray-400 rounded-lg mt-6 flex items-center justify-center flex-col text-gray-300 ">
-          <Task />
-          <Task />
-          <Task />
-          <Task />
-          <Task />
-          <Task />
+          {taskList.length == 0 ? (
+            <>
+              <div className="flex items-center justify-center flex-col mt-20">
+                <ClipboardText size={64} color="#333333" />
+                <span className="font-bold mt-4 text-center">
+                  Você ainda não tem tarefas cadastradas
+                </span>
+                <span className="text-center">
+                  Crie tarefas e organize seus itens a fazer
+                </span>
+              </div>
+            </>
+          ) : (
+            <>
+              {taskList.map(task => {
+                return (
+                  <Task
+                    content={task.content}
+                    isChecked={task.isChecked}
+                    key={task.id}
+                  />
+                )
+              })}
+            </>
+          )}
         </main>
       </section>
     </div>
@@ -56,4 +120,16 @@ export function Home() {
               Crie tarefas e organize seus itens a fazer
             </span>
           </div>
+
+
+
+          {taskList.map(task => {
+            return (
+              <Task
+                content={task.content}
+                isChecked={task.isChecked}
+                key={task.id}
+              />
+            )
+          })}
  */
