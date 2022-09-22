@@ -5,16 +5,16 @@ import { Input } from '../../components/Input'
 
 export function Home() {
   return (
-    <div className="h-full">
+    <div className="h-full flex flex-col items-center justify-center">
       <Header />
-      <div className="w-full px-4 -mt-8 ">
-        <div className="w-full flex items-center justify-between gap-2">
-          <Input placeholder="Adicione uma nova tarefa" />
-          <Button text="Criar" />
-        </div>
-      </div>
 
-      <section className="w-full h-full">
+      <section className="w-full h-full max-w-3xl">
+        <div className="w-full px-4 -mt-8 ">
+          <div className="w-full flex items-center justify-between gap-2">
+            <Input placeholder="Adicione uma nova tarefa" />
+            <Button text="Criar" />
+          </div>
+        </div>
         <header className="w-full">
           <div className="w-full flex items-center justify-between px-4 mt-16">
             <div className="flex gap-2">
@@ -37,10 +37,12 @@ export function Home() {
         <main className="w-full rounded-2 overflow-hidden flex-1 border-t-2 border-gray-400 rounded-lg mt-6 flex items-center justify-center flex-col text-gray-300 ">
           <div className="flex items-center justify-center flex-col mt-20">
             <ClipboardText size={56} color="#333333" />
-            <span className="font-bold mt-4">
+            <span className="font-bold mt-4 text-center">
               Você ainda não tem tarefas cadastradas
             </span>
-            <span>Crie tarefas e organize seus itens a fazer</span>
+            <span className="text-center">
+              Crie tarefas e organize seus itens a fazer
+            </span>
           </div>
         </main>
       </section>
