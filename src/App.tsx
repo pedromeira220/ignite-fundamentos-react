@@ -4,7 +4,7 @@ import './styles/main.css'
 
 function App() {
   return (
-    <div className="font-inter">
+    <div className="font-inter h-full">
       <Home />
     </div>
   )
