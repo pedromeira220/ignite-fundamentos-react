@@ -1,7 +1,7 @@
-import { ClipboardText } from 'phosphor-react'
 import { Button } from '../../components/Button'
 import { Header } from '../../components/Header'
 import { Input } from '../../components/Input'
+import { Task } from '../../components/Task'
 
 export function Home() {
   return (
@@ -35,7 +35,19 @@ export function Home() {
         </header>
 
         <main className="w-full rounded-2 overflow-hidden flex-1 border-t-2 border-gray-400 rounded-lg mt-6 flex items-center justify-center flex-col text-gray-300 ">
-          <div className="flex items-center justify-center flex-col mt-20">
+          <Task />
+          <Task />
+          <Task />
+          <Task />
+          <Task />
+          <Task />
+        </main>
+      </section>
+    </div>
+  )
+}
+/*
+<div className="flex items-center justify-center flex-col mt-20">
             <ClipboardText size={56} color="#333333" />
             <span className="font-bold mt-4 text-center">
               Você ainda não tem tarefas cadastradas
@@ -44,8 +56,4 @@ export function Home() {
               Crie tarefas e organize seus itens a fazer
             </span>
           </div>
-        </main>
-      </section>
-    </div>
-  )
-}
+ */
