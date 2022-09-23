@@ -1,3 +1,5 @@
+import { v4 as uuid } from 'uuid'
+
 import { ClipboardText } from 'phosphor-react'
 import { useState } from 'react'
 import { Button } from '../../components/Button'
@@ -5,7 +7,7 @@ import { Header } from '../../components/Header'
 import { Input } from '../../components/Input'
 import { Task } from '../../components/Task'
 
-interface ITask {
+export interface ITask {
   content: string
   isChecked: boolean
   id: string
@@ -15,6 +17,8 @@ export function Home() {
   const [taskList, setTaskList] = useState<ITask[]>([])
 
   const [newTaskText, setNewTaskText] = useState('')
+
+  const [checkedTaskList, setCheckedTaskList] = useState<ITask[]>([])
 
   function handleNewTaskInputChange(
     event: React.ChangeEvent<HTMLInputElement>
@@ -30,13 +34,25 @@ export function Home() {
 
     const newTask: ITask = {
       content: newTaskText,
-      id: '1',
+      id: uuid(),
       isChecked: false,
     }
 
     const newTaskList: ITask[] = [newTask, ...taskList]
 
     setTaskList(newTaskList)
+  }
+
+  function deleteTask(taskId: string) {
+    const taskListWithoutDeletedOne = taskList.filter(taskItem => {
+      if (taskItem.id !== taskId) {
+        return true
+      } else {
+        return false
+      }
+    })
+
+    setTaskList(taskListWithoutDeletedOne)
   }
 
   return (
@@ -67,13 +83,17 @@ export function Home() {
                 Tarefas criadas
               </span>
               <span className="px-2 py-[0.125rem] bg-gray-400 rounded-full flex items-center justify-center ">
-                <span className="text-white text-xs">0</span>
+                <span className="text-white text-xs">{taskList.length}</span>
               </span>
             </div>
             <div className="flex gap-2">
               <span className="font-bold text-purple text-sm">Concluídas</span>
               <span className="px-2 py-[0.125rem] bg-gray-400 rounded-full flex items-center justify-center ">
-                <span className="text-white text-xs">0</span>
+                <span className="text-white text-xs">
+                  {taskList.length == 0
+                    ? '0'
+                    : `${checkedTaskList.length}/${taskList.length}`}
+                </span>
               </span>
             </div>
           </div>
@@ -97,8 +117,11 @@ export function Home() {
               {taskList.map(task => {
                 return (
                   <Task
-                    content={task.content}
-                    isChecked={task.isChecked}
+                    onDeleteTask={deleteTask}
+                    taskList={taskList}
+                    setTaskList={setCheckedTaskList}
+                    setCheckedTaskList={setCheckedTaskList}
+                    task={task}
                     key={task.id}
                   />
                 )

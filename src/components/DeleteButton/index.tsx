@@ -1,7 +1,9 @@
 import { Trash } from 'phosphor-react'
-import { useState } from 'react'
+import { ButtonHTMLAttributes, useState } from 'react'
 
-export function DeleteButton() {
+interface DeleteButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {}
+
+export function DeleteButton({ ...rest }: DeleteButtonProps) {
   const [trashIconColor, setTrashIconColor] = useState<'#808080' | '#E25858'>(
     '#808080'
   )
@@ -15,6 +17,7 @@ export function DeleteButton() {
       onMouseLeave={() => {
         setTrashIconColor('#808080')
       }}
+      {...rest}
     >
       <Trash size={24} color={trashIconColor} />
     </button>
