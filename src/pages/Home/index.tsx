@@ -1,7 +1,8 @@
+import { useState } from 'react'
 import { v4 as uuid } from 'uuid'
 
 import { ClipboardText } from 'phosphor-react'
-import { useState } from 'react'
+
 import { Button } from '../../components/Button'
 import { Header } from '../../components/Header'
 import { Input } from '../../components/Input'
@@ -39,6 +40,13 @@ export function Home() {
     const newTaskList: ITask[] = [newTask, ...taskList]
 
     setTaskList(newTaskList)
+    setNewTaskText('')
+
+    const newTasksInput = document.querySelector(
+      '.new-tasks-input'
+    ) as HTMLInputElement
+
+    newTasksInput.focus()
   }
 
   function deleteTask(taskId: string) {
@@ -85,6 +93,8 @@ export function Home() {
               onChange={event => {
                 handleNewTaskInputChange(event)
               }}
+              value={newTaskText}
+              autoFocus
             />
             <Button
               text="Criar"
