@@ -135,7 +135,7 @@ export function Home() {
                         taskList.filter(taskItem => {
                           return taskItem.isChecked
                         }).length
-                      } de ${taskList.length}`}
+                      } / ${taskList.length}`}
                 </span>
               </span>
             </div>
