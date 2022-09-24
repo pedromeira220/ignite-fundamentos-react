@@ -5,26 +5,51 @@ import { DeleteButton } from '../DeleteButton'
 
 interface TaskProps {
   task: ITask
-  setCheckedTaskList: React.Dispatch<React.SetStateAction<ITask[]>>
   taskList: ITask[]
   setTaskList: React.Dispatch<React.SetStateAction<ITask[]>>
   onDeleteTask: (taskId: string) => void
+  setCheckedTaskList: React.Dispatch<React.SetStateAction<ITask[]>>
 }
 
 export function Task({
   task,
-  setCheckedTaskList,
   taskList,
   setTaskList,
   onDeleteTask,
+  setCheckedTaskList,
 }: TaskProps) {
   const [isCheckboxChecked, setIsCheckboxChecked] = useState(
     task.isChecked ? task.isChecked : false
   )
 
   function handleCheckBoxChange() {
-    setIsCheckboxChecked(state => {
-      return !state
+    setIsCheckboxChecked(oldIsChecked => {
+      const newIsChecked = !oldIsChecked
+
+      const newTaskList = taskList.map(taskItem => {
+        if ((taskItem.id = task.id)) {
+          const newTask: ITask = {
+            ...taskItem,
+            isChecked: newIsChecked,
+          }
+
+          return newTask
+        }
+
+        return taskItem
+      })
+
+      setTaskList(newTaskList)
+
+      const taskListWithOnlyCheckedOne = newTaskList.filter(taskItem => {
+        console.log(taskItem)
+
+        return taskItem.isChecked
+      })
+
+      setCheckedTaskList(taskListWithOnlyCheckedOne)
+
+      return newIsChecked
     })
   }
 

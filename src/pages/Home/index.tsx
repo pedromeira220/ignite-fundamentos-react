@@ -92,7 +92,7 @@ export function Home() {
                 <span className="text-white text-xs">
                   {taskList.length == 0
                     ? '0'
-                    : `${checkedTaskList.length}/${taskList.length}`}
+                    : `${checkedTaskList.length} de ${taskList.length}`}
                 </span>
               </span>
             </div>
@@ -119,10 +119,10 @@ export function Home() {
                   <Task
                     onDeleteTask={deleteTask}
                     taskList={taskList}
-                    setTaskList={setCheckedTaskList}
-                    setCheckedTaskList={setCheckedTaskList}
+                    setTaskList={setTaskList}
                     task={task}
                     key={task.id}
+                    setCheckedTaskList={setCheckedTaskList}
                   />
                 )
               })}
