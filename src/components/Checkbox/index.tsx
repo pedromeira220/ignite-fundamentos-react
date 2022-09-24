@@ -3,9 +3,13 @@ import { Check } from 'phosphor-react'
 
 interface CheckboxProps {
   handleCheckBoxChange: () => void
+  isChecked?: boolean
 }
 
-export function Checkbox({ handleCheckBoxChange }: CheckboxProps) {
+export function Checkbox({
+  handleCheckBoxChange,
+  isChecked = false,
+}: CheckboxProps) {
   return (
     <div>
       <CheckboxRadix.Root
@@ -13,6 +17,7 @@ export function Checkbox({ handleCheckBoxChange }: CheckboxProps) {
         onClick={() => {
           handleCheckBoxChange()
         }}
+        checked={isChecked}
       >
         <CheckboxRadix.Indicator>
           <Check size={16} color="#ffffff" />
