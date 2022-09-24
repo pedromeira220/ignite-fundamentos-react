@@ -25,6 +25,7 @@ export function Task({
     <div className="bg-gray-500 flex items-center justify-between p-4 rounded-lg w-full mb-3">
       <div className="gap-4 flex items-center justify-between">
         <Checkbox
+          isChecked={isCheckboxChecked}
           handleCheckBoxChange={() => {
             setIsCheckboxChecked(oldIsCheckedState => {
               const newIsCheckedState = !oldIsCheckedState

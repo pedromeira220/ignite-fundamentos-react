@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { v4 as uuid } from 'uuid'
 
 import { ClipboardText } from 'phosphor-react'
@@ -7,6 +7,7 @@ import { Button } from '../../components/Button'
 import { Header } from '../../components/Header'
 import { Input } from '../../components/Input'
 import { Task } from '../../components/Task'
+import { localStorageService } from '../../services/localStorageService'
 
 export interface ITask {
   content: string
@@ -47,6 +48,8 @@ export function Home() {
     ) as HTMLInputElement
 
     newTasksInput.focus()
+
+    localStorageService.setItem('taskList', newTaskList)
   }
 
   function deleteTask(taskId: string) {
@@ -59,6 +62,7 @@ export function Home() {
     })
 
     setTaskList(taskListWithoutDeletedOne)
+    localStorageService.setItem('taskList', taskListWithoutDeletedOne)
   }
 
   function setInTaskListTaskCheckedProperty(
@@ -79,7 +83,14 @@ export function Home() {
     })
 
     setTaskList(taskListWithUpdatedTask)
+    localStorageService.setItem('taskList', taskListWithUpdatedTask)
   }
+
+  useEffect(() => {
+    const taskListFromLocalStorage = localStorageService.getItem('taskList')
+
+    setTaskList(taskListFromLocalStorage)
+  }, [])
 
   return (
     <div className="h-full flex flex-col items-center justify-center">
@@ -124,7 +135,7 @@ export function Home() {
                         taskList.filter(taskItem => {
                           return taskItem.isChecked
                         }).length
-                      } de ${taskList.length}`}
+                      } / ${taskList.length}`}
                 </span>
               </span>
             </div>
