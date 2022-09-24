@@ -18,8 +18,6 @@ export function Home() {
 
   const [newTaskText, setNewTaskText] = useState('')
 
-  const [checkedTaskList, setCheckedTaskList] = useState<ITask[]>([])
-
   function handleNewTaskInputChange(
     event: React.ChangeEvent<HTMLInputElement>
   ) {
@@ -53,6 +51,26 @@ export function Home() {
     })
 
     setTaskList(taskListWithoutDeletedOne)
+  }
+
+  function setInTaskListTaskCheckedProperty(
+    taskId: string,
+    newIsCheckedState: boolean
+  ) {
+    const taskListWithUpdatedTask = taskList.map(taskItem => {
+      if (taskItem.id == taskId) {
+        const newTask: ITask = {
+          ...taskItem,
+          isChecked: newIsCheckedState,
+        }
+
+        return newTask
+      }
+
+      return taskItem
+    })
+
+    setTaskList(taskListWithUpdatedTask)
   }
 
   return (
@@ -92,7 +110,11 @@ export function Home() {
                 <span className="text-white text-xs">
                   {taskList.length == 0
                     ? '0'
-                    : `${checkedTaskList.length} de ${taskList.length}`}
+                    : `${
+                        taskList.filter(taskItem => {
+                          return taskItem.isChecked
+                        }).length
+                      } de ${taskList.length}`}
                 </span>
               </span>
             </div>
@@ -117,12 +139,12 @@ export function Home() {
               {taskList.map(task => {
                 return (
                   <Task
-                    onDeleteTask={deleteTask}
-                    taskList={taskList}
-                    setTaskList={setTaskList}
                     task={task}
                     key={task.id}
-                    setCheckedTaskList={setCheckedTaskList}
+                    onDeleteTask={deleteTask}
+                    onSetInTaskListTaskCheckedProperty={
+                      setInTaskListTaskCheckedProperty
+                    }
                   />
                 )
               })}
